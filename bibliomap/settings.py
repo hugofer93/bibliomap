@@ -103,11 +103,11 @@ WSGI_APPLICATION = 'bibliomap.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE':   'django.db.backends.postgresql_psycopg2',
-        'NAME':     '',
-        'USER':     '',
-        'PASSWORD': '',
-        'HOST':     '',
-        'PORT':     '5432',
+        'NAME':     os.environ['RDS_DB_NAME'],
+        'USER':     os.environ['RDS_USERNAME'],
+        'PASSWORD': os.environ['RDS_PASSWORD'],
+        'HOST':     os.environ['RDS_HOSTNAME'],
+        'PORT':     os.environ['RDS_PORT'],
     }
 }
 
