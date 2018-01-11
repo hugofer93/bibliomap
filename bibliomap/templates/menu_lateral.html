@@ -1,0 +1,27 @@
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'inicio' %}"><i class="zmdi zmdi-home zmdi-hc-fw"></i>&nbsp;&nbsp; Inicio</a></li>
+
+                    <li><a href="{% url 'libro' %}"><i class="zmdi zmdi-book zmdi-hc-fw"></i>&nbsp;&nbsp; Libros</a></li>
+
+                    <li><a href="{% url 'categoria' %}"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Categorias</a></li>
+
+                    <li><a href="{% url 'seccion' %}"><i class="zmdi zmdi-assignment-account zmdi-hc-fw"></i>&nbsp;&nbsp; Secciones</a></li>
+
+                    {% if request.user.is_authenticated %}
+
+                    <li>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-account zmdi-hc-fw"></i>&nbsp;&nbsp; {{request.user}} <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'logout' %}"><i class="zmdi zmdi-power zmdi-hc-fw"></i>&nbsp;&nbsp; Cerrar Sesion</a></li>
+                        </ul>
+                    </li>
+                    
+                    
+                    <li><a href="{% url 'reservaciones' %}"><i class="zmdi zmdi-timer zmdi-hc-fw"></i>&nbsp;&nbsp; Reservaciones</a></li>
+                    
+                    <li><a href="{% url 'prestamos' %}"><i class="zmdi zmdi-calendar zmdi-hc-fw"></i>&nbsp;&nbsp; Historial de préstamos</a></li>
+                    
+                    <li><a href="{% url 'devoluciones' %}"><i class="zmdi zmdi-time-restore zmdi-hc-fw"></i>&nbsp;&nbsp; Devoluciones pendientes</a></li>
+
+                    {% endif %}
+                </ul>

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %} {{object.titulo|title}} {% endblock %}
+
+{% block titulo %} {{object.titulo|title}} {% endblock %}
+
+{% block content %}
+	{% load staticfiles %}
+        <div class="container-fluid" style="margin: 50px 0;">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <img src="{% static 'assets/img/book.png' %}" alt="calendar" class="img-responsive center-box" style="max-height: 92px;">
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+                    Bienvenido a esta sección, aquí se muestran los detalles del libro.
+                </div>
+            </div>
+            <div class="row">
+            	<img src="{{object.portada.url}}" class="img-responsive img-thumbnail center-block" alt="Cinque Terre" style="width:auto;height:300;">
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <form autocomplete="off">
+                <div class="container-flat-form">
+                    <div class="title-flat-form title-flat-blue">{{object.titulo|title}}</div>
+                    <div class="row">
+                       <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                            <legend><strong>Información detallada</strong></legend><br>
+                            <div class="form-group">
+								<label for="codigo">CODIGO:</label>
+								<input type="text" class="tooltips-general form-control" id="codigo" data-toggle="tooltip" title="{{object.codigo|default:""|upper}}" value="{{object.codigo|default:""|upper}}" readonly>
+							</div>
+                            <div class="form-group">
+								<label for="titulo">TITULO:</label>
+								<input type="text" class="tooltips-general form-control" id="titulo" data-toggle="tooltip" title="{{object.titulo|title}}" value="{{object.titulo|title}}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="isbn">ISBN:</label>
+								<input type="text" class="tooltips-general form-control" id="isbn" data-toggle="tooltip" title="{{object.isbn|default:""|upper}}" value="{{object.isbn|default:""|upper}}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="anio">AÑO:</label>
+								<input type="text" class="tooltips-general form-control" id="anio" data-toggle="tooltip" title="{{object.anio|default:""}}" value="{{object.anio|default:""}}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="autor">AUTOR:</label>
+								{% for autor in object.autores.all %}
+								<input type="text" class="tooltips-general form-control" id="autor" data-toggle="tooltip" title="{{autor|default:""|title}}" value="{{autor|default:""|title}}" readonly>
+								{% empty %}
+								<input type="text" class="tooltips-general form-control" id="autor" data-toggle="tooltip" title="{{object.autores|default:""|title}}" value="{{object.autores|default:""|title}}" readonly>
+								{% endfor %}
+							</div>
+							<div class="form-group">
+								<label for="editorial">EDITORIAL:</label>
+								<input type="text" class="tooltips-general form-control" id="editorial" data-toggle="tooltip" title="{{object.editorial|default:""|title}}" value="{{object.editorial|default:""|title}}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="categoria">CATEGORIA:</label>
+								<input type="text" class="tooltips-general form-control" id="categoria" data-toggle="tooltip" title="{{object.categoria|default:""|title}}" value="{{object.categoria|default:""|title}}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="seccion">SECCION: </label> <a href='{{object.seccion.ubicacion.url}}'>Ver Ubicacion</a>
+								<input type="text" class="tooltips-general form-control" id="seccion" data-toggle="tooltip" title="{{object.seccion|default:""|title}}" value="{{object.seccion|default:""|title}}" readonly>
+
+							</div>
+							
+                            <p class="text-center">
+                            	{% if object.disponible %}
+                            	<a href='{{object.get_absolute_url}}/prestamo/' style="margin-right: 20px;" class="btn btn-info">PRESTAMO</a>
+                            	<a href='{{object.get_absolute_url}}/reservacion/' style="margin-right: 20px;" class="btn btn-default">RESERVAR</a>
+                            	{% else %}
+                            	<strong>NO SE ENCUENTRA DISPONIBLE</strong>
+                            	{% endif %}
+                            </p>
+                       </div>
+                   </div>
+                </div>
+            </form>
+        </div>
+{% endblock %}

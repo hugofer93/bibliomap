@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %} Libro {% endblock %}
+
+{% block titulo %} Libro {% endblock %}
+
+{% block content %}
+	{% load staticfiles %}
+        <div class="container-fluid" style="margin: 50px 0;">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <img src="{% static 'assets/img/book.png' %}" alt="calendar" class="img-responsive center-box" style="max-height: 92px;">
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+                    Bienvenido a esta sección, aquí se muestran todos los libros hasta la fecha que posee la biblioteca.
+                </div>
+            </div>
+        </div>
+        
+        <div class="container-fluid">
+            <h2 class="text-center all-tittles">Listado de libros</h2>
+            <div class="table-responsive">
+                <div class="div-table" style="margin:0 !important;">
+                    <div class="div-table-row div-table-row-list" style="background-color:#DFF0D8; font-weight:bold;">
+                        <div class="div-table-cell" style="width: 42%;">Nombre de libro</div>
+                        <div class="div-table-cell" style="width: 30%;">Nombre de editorial</div>
+                        <div class="div-table-cell" style="width: 10%;">Categoria</div>
+                        <div class="div-table-cell" style="width: 10%;">Dispobible</div>
+                        <div class="div-table-cell" style="width: 8%;">Detalle</div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div class="div-table" style="margin:0 !important;">
+                    {% for object in object_list %}
+                    <div class="div-table-row div-table-row-list">
+                        <div class="div-table-cell" style="width: 42%;"><a href="{{object.get_absolute_url}}">{{object.titulo|title}}</a></div>
+                        <div class="div-table-cell" style="width: 30%;">{{object.editorial|title}}</div>
+                        <div class="div-table-cell" style="width: 10%;">{{object.categoria|title}}</div>
+                        <div class="div-table-cell" style="width: 10%;">
+                            {%if object.disponible %} <i class="zmdi zmdi-check"></i>
+                            {% else %} <i class="zmdi zmdi-close"></i> {%endif%}
+                        </div>
+                        <div class="div-table-cell" style="width: 8%;">
+                        	<a href="{{object.get_absolute_url}}" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="div-table-row div-table-row-list">
+                    	<div class="div-table-cell" style="width: 100%;">No hay libros registrados, por favor comuniquese con la administracion</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% include 'paginacion.html' %}
+
+        </div>
+
+{% endblock %}

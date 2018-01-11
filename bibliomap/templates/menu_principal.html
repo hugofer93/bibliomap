@@ -1,0 +1,55 @@
+        <section class="full-reset text-center" style="padding: 40px 0;">
+            
+            <article class="tile" onclick="location.href='{% url 'inicio' %}';">
+                <div class="tile-icon full-reset"><i class="zmdi zmdi-home"></i></div>
+                <div class="tile-name all-tittles" style="width: 90%;">inicio</div>
+                <div class="tile-num full-reset">&nbsp;</div>
+            </article>
+
+            <article class="tile" onclick="location.href='{% url 'libro' %}';">
+                <div class="tile-icon full-reset"><i class="zmdi zmdi-book"></i></div>
+                <div class="tile-name all-tittles">libros</div>
+                <div class="tile-num full-reset">{{libro|length}}</div>
+            </article>
+
+            <article class="tile" onclick="location.href='{% url 'categoria' %}';">
+                <div class="tile-icon full-reset"><i class="zmdi zmdi-bookmark-outline"></i></div>
+                <div class="tile-name all-tittles">categorías</div>
+                <div class="tile-num full-reset">{{categoria|length}}</div>
+            </article>
+
+            <article class="tile" onclick="location.href='{% url 'seccion' %}';">
+                <div class="tile-icon full-reset"><i class="zmdi zmdi-assignment-account"></i></div>
+                <div class="tile-name all-tittles">secciones</div>
+                <div class="tile-num full-reset">{{seccion|length}}</div>
+            </article>
+            
+            {% if request.user.is_authenticated %}
+
+            <article class="tile" onclick="location.href='{% url 'reservaciones' %}';">
+                <div class="tile-icon full-reset"><i class="zmdi zmdi-timer"></i></div>
+                <div class="tile-name all-tittles">reservaciones</div>
+                <div class="tile-num full-reset">{{reservacion|length}}</div>
+            </article>
+            
+            <article class="tile" onclick="location.href='{% url 'prestamos' %}';">
+                <div class="tile-icon full-reset"><i class="zmdi zmdi-calendar"></i></div>
+                <div class="tile-name all-tittles">Historial de préstamos</div>
+                <div class="tile-num full-reset">{{prestamo|length}}</div>
+            </article>
+
+            <article class="tile" onclick="location.href='{% url 'devoluciones' %}';">
+                <div class="tile-icon full-reset"><i class="zmdi zmdi-time-restore"></i></div>
+                <div class="tile-name all-tittles" style="width: 90%;">devoluciones pendientes</div>
+                <div class="tile-num full-reset">{{devolucion_pendiente|length}}</div>
+            </article>
+
+            <article class="tile" onclick="location.href='{% url 'logout' %}';">
+                <div class="tile-icon full-reset"><i class="zmdi zmdi-power"></i></div>
+                <div class="tile-name all-tittles" style="width: 90%;">cerrar sesion</div>
+                <div class="tile-num full-reset">&nbsp;</div>
+            </article>
+
+            {% endif %}
+        
+        </section>

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %} Reservacion {% endblock %}
+
+{% block titulo %} Reservacion {% endblock %}
+
+{% block content %}
+	{% load staticfiles %}
+        <div class="container-fluid" style="margin: 50px 0;">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <img src="{% static 'assets/img/book.png' %}" alt="calendar" class="img-responsive center-box" style="max-height: 92px;">
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+                    Bienvenido a esta sección, aquí se muestran los detalles del libro: {{object.libro.titulo|title}} reservado.
+                </div>
+            </div>
+            <div class="row">
+            	<img src="{{object.portada}}" class="img-responsive img-thumbnail center-block" alt="Cinque Terre" style="width:auto;height:480;">
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <form autocomplete="off">
+                <div class="container-flat-form">
+                    <div class="title-flat-form title-flat-blue">{{object.libro.titulo|title}}</div>
+                    <div class="row">
+                       <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                            <legend><strong>Información detallada</strong></legend><br>
+                            <div class="form-group">
+								<label for="codigo">CODIGO:</label>
+								<input type="text" class="tooltips-general form-control" id="codigo" data-toggle="tooltip" title="{{object.libro.codigo|default:""|upper}}" value="{{object.codigo|default:""|upper}}" readonly>
+							</div>
+                            <div class="form-group">
+								<label for="titulo">TITULO:</label>
+								<input type="text" class="tooltips-general form-control" id="titulo" data-toggle="tooltip" title="{{object.libro.titulo|title}}" value="{{object.libro.titulo|title}}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="isbn">ISBN:</label>
+								<input type="text" class="tooltips-general form-control" id="isbn" data-toggle="tooltip" title="{{object.libro.isbn|default:""|upper}}" value="{{object.libro.isbn|default:""|upper}}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="anio">AÑO:</label>
+								<input type="text" class="tooltips-general form-control" id="anio" data-toggle="tooltip" title="{{object.libro.anio|default:""}}" value="{{object.libro.anio|default:""}}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="autor">AUTOR:</label>
+								{% for autor in object.libro.autores.all %}
+								<input type="text" class="tooltips-general form-control" id="autor" data-toggle="tooltip" title="{{autor|default:""|title}}" value="{{autor|default:""|title}}" readonly>
+								{% empty %}
+								<input type="text" class="tooltips-general form-control" id="autor" data-toggle="tooltip" title="{{object.libro.autores|default:""|title}}" value="{{object.autores|default:""|title}}" readonly>
+								{% endfor %}
+							</div>
+							<div class="form-group">
+								<label for="editorial">EDITORIAL:</label>
+								<input type="text" class="tooltips-general form-control" id="editorial" data-toggle="tooltip" title="{{object.libro.editorial|default:""|title}}" value="{{object.libro.editorial|default:""|title}}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="categoria">CATEGORIA:</label>
+								<input type="text" class="tooltips-general form-control" id="categoria" data-toggle="tooltip" title="{{object.libro.categoria|default:""|title}}" value="{{object.libro.categoria|default:""|title}}" readonly>
+							</div>
+							<div class="form-group">
+								<label for="seccion">SECCION: </label> <a href='{{object.portada}}'>Ver Ubicacion</a>
+								<input type="text" class="tooltips-general form-control" id="seccion" data-toggle="tooltip" title="{{object.libro.seccion|default:""|title}}" value="{{object.libro.seccion|default:""|title}}" readonly>
+							</div>
+                       </div>
+                   </div>
+                </div>
+            </form>
+            {% if object.estado %}
+		        <form class="form-horizontal" method="post">
+		            {% csrf_token %}
+		            <p class="text-center">
+		                <button type="submit" name="reservacion" value="{{object.id}}" style="margin-right: 20px;" class="btn btn-danger"><i class="zmdi zmdi-close"></i> Dejar de Reservar</button>
+		                <a href='{% url 'reservaciones' %}' style="margin-right: 20px;" class="btn btn-default">Regresar</a>
+		            </p>
+		        </form>
+		        {% else %}
+		        <p class="text-center">
+		            <strong>NO SE ENCUENTRA DISPONIBLE</strong>
+		        </p>
+		        <p class="text-center">
+		            <a href='{% url 'reservaciones' %}' style="margin-right: 20px;" class="btn btn-default">Regresar</a>
+		        </p>
+		        {% endif %}
+        </div>
+{% endblock %}

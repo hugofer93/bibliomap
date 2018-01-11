@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} Prestamo {% endblock %}
+
+{% block titulo %} Prestamo {% endblock %}
+
+{% block content %}
+	{% load staticfiles %}
+        <div class="container-fluid" style="margin: 50px 0;">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <img src="{% static 'assets/img/book.png' %}" alt="calendar" class="img-responsive center-box" style="max-height: 92px;">
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+                    Confirmacion de prestamo del libro: {{object.titulo|title}}. Por favor <strong>escoge el tiempo</strong> de prestamo, <strong>recoge el libro</strong> en la siguiente ubicacion y haz <strong>clic en confirmar.</strong>
+                </div>
+            </div>
+            <div class="row">
+            	<img src="{{object.seccion.ubicacion.url}}" class="img-responsive img-thumbnail center-block" alt="Cinque Terre" style="width:auto;height:480;">
+            </div>
+        </div>
+
+        {% if object.disponible %}
+        <form class="form-horizontal" method="post">
+            {% csrf_token %}
+            <p class="text-center">
+                <label class="radio-inline"><input type="radio" name="prestamo" value="{{parametro.prestamo_clase}}" checked>Prestamo para clase</label>
+                <label class="radio-inline"><input type="radio" name="prestamo" value="{{parametro.prestamo_casa}}">Prestamo para casa</label>
+            </p>
+            <p class="text-center">
+                <button type="submit" name="libro" value="{{object.id}}" style="margin-right: 20px;" class="btn btn-success"><i class="zmdi zmdi-check"></i> Confirmar</button>
+                <a href='{{object.get_absolute_url}}' style="margin-right: 20px;" class="btn btn-default">Regresar</a>
+            </p>
+        </form>
+        {% else %}
+        <p class="text-center">
+            <strong>NO SE ENCUENTRA DISPONIBLE</strong>
+        </p>
+        <p class="text-center">
+            <a href='{{object.get_absolute_url}}' style="margin-right: 20px;" class="btn btn-default">Regresar</a>
+        </p>
+        {% endif %}
+{% endblock %}

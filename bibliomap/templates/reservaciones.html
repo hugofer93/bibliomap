@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %} Reservaciones {% endblock %}
+
+{% block titulo %} Reservaciones {% endblock %}
+
+{% block content %}
+	{% if object_list %}
+    <div class="container-fluid">
+            <h2 class="text-center all-tittles">Listado de libros reservados</h2>
+            <div class="table-responsive">
+                <div class="div-table" style="margin:0 !important;">
+                    <div class="div-table-row div-table-row-list" style="background-color:#DFF0D8; font-weight:bold;">
+                        <div class="div-table-cell" style="width: 52%;">Nombre de libro</div>
+                        <div class="div-table-cell" style="width: 30%;">Nombre de editorial</div>
+                        <div class="div-table-cell" style="width: 10%;">Categoria</div>
+                        <div class="div-table-cell" style="width: 8%;">Detalle</div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div class="div-table" style="margin:0 !important;">
+                    {% for object in object_list %}
+                    <div class="div-table-row div-table-row-list">
+                        <div class="div-table-cell" style="width: 52%;">{{object.libro.titulo|title}}</div>
+                        <div class="div-table-cell" style="width: 30%;">{{object.libro.editorial|title}}</div>
+                        <div class="div-table-cell" style="width: 10%;">{{object.libro.categoria|title}}</div>
+                        <div class="div-table-cell" style="width: 8%;">
+                            <a href="{{object.get_absolute_url}}" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="div-table-row div-table-row-list">
+                        <div class="div-table-cell" style="width: 100%;">No hay libros registrados, por favor comuniquese con la administracion</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% include 'paginacion.html' %}
+    </div>
+
+    {% else %}
+		<br><br>
+        <h3 class="text-center all-tittles">No hay libros</h3>
+        <h2 class="text-center"><i class="zmdi zmdi-alert-polygon zmdi-hc-5x"></i>
+        	<br><br>Lo sentimos, no hemos encontrado ningún libro que hayas <strong>reservado</strong> en el sistema</h2>
+	{% endif %}
+{% endblock %}
