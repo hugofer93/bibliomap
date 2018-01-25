@@ -1,7 +1,7 @@
 # bibliomap
 Aplicacion web para busqueda, reservacion y prestamos de libros.
 
-Desplegada en AWS, usando la capa gratuita. EC2 + S3 + RDS.
+Desplegada en AWS, usando la capa gratuita. EC2 (gunircorn + NginX) + S3 + RDS (PostgreSQL).
 
 para ver el sitio acceder a http://54.207.65.33/
 
